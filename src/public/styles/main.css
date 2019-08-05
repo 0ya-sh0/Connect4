@@ -1,0 +1,64 @@
+* {
+    padding: 0;
+    margin: 0;
+    color: var(--color-text1);
+}
+
+@media only screen and (max-device-width: 800px) {
+    /* For tablets: */
+    .col-s-1 {width: 50%;}
+    .col-s-2 {width: 58.33%;}
+    .col-s-3 {width: 66.66%;}
+    .col-s-4 {width: 75%;}
+    .col-s-5 {width: 83.33%;}
+    .col-s-6 {width: 91.66%;}
+    .col-s-7 {width: 100%;}
+    .mar {
+        margin:auto;
+        margin-top: 30px;
+        margin-bottom: 30px; }
+}
+  
+  @media only screen and (min-device-width: 801px) {
+    /* For desktop: */
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+    .mar {margin:25% ;
+        margin-top: 40px;
+        margin-bottom: 40px;}
+  }
+
+:root {
+    --color-secondary: rgba(237, 247, 246, 1);
+    --color-primary: rgba(37, 48, 49, 1);
+    --color-tert:rgba(186, 209, 205, 1);
+    --color-blue: rgba(8, 103, 136, 1);
+    --color-orange: rgba(255, 180, 0, 1);
+    --color-red: rgba(208, 0, 0, 1);
+    --color-text1: rgba(235, 94, 85, 1);
+    --color-text2: rgba(230, 230, 234, 1);
+    --color-text3: rgba(90, 87, 102, 1);
+}
+
+body {
+    text-align:center;
+    background-color: var(--color-secondary);
+}
+
+h1{
+    width:100%;
+    padding-bottom:1%;
+    padding-top:1%;
+    background-color: var(--color-primary);
+    text-align:center;
+}

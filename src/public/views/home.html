@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Connect 4</title>        
+            <script src="/scripts/home.js"></script>
+            <link href="/styles/main.css" rel="stylesheet">
+            <link href="/styles/home.css" rel="stylesheet">
+         </head>
+    <body>
+        <h1>Connect 4<br/></h1>
+        <div class="container col-5 col-s-5 mar">
+            <h2>How to start ?</h2>
+            <ul>
+                <li>First create a new Game</li>
+                <li>You must give a unique Id to create game</li>
+                <li>Id could be custom or randomly generated</li>
+                <li>Share the id with friend and ask him to join</li>
+                <li>You can also invite friend by a link</li>
+                <li>Game will start when opponent joins</li>
+                <li>And then game begins ...</li>
+            </ul>
+        </div>
+
+        <div class = "container col-5 col-s-5 mar">
+                <h2>Play</h2>
+                <div id="row1">
+                    <label>Game Id :</label><input type = "text" id="gid">
+                </div>
+                <div id="row2">
+                    <button onclick="random()">Try Random ID</button>
+                    <button onclick="createGame()">Create Game</button>
+                    <button onclick="joinGame()">Join Game</button>
+                </div>
+            </div>
+
+        <div class="container col-5 col-s-5 mar">
+            <h2>Never heard connect 4 ?</h2>
+            <p>
+                Then lets ask <a href="https://en.wikipedia.org/wiki/Connect_Four" target="_blank">wikipedia</a> !!!
+            </p>
+        </div>
+    </body>
+</html>
