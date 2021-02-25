@@ -49,7 +49,7 @@ socket.on('createGameR', (obj) => {
             `Created game, waiting for other player...`;
         document.getElementById('link').innerHTML =
             `<br>share link to invite : 
-        ${window.location.origin}/game?id=${gid}&created=false`;
+        ${window.location.origin}/game.html?id=${gid}&created=false`;
     } else {
         alert(obj.message);
         document.location.assign('/');

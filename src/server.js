@@ -2,16 +2,9 @@ const express = require('express');
 const expressServer = express();
 
 expressServer.get('/', function (req, res) {
-	res.redirect('/home');
+	res.redirect('/home.html');
 });
-expressServer.get('/home', function (req, res) {
-	res.sendFile(__dirname + '/public/views/home.html');
-});
-expressServer.get('/game', function (req, res) {
-	res.sendFile(__dirname + '/public/views/game.html');
-});
-expressServer.use('/styles', express.static(__dirname + '/public/styles'));
-expressServer.use('/scripts', express.static(__dirname + '/public/scripts'));
+expressServer.use('/', express.static(__dirname + '/public/'));
 
 const http = require('http');
 const httpServer = http.Server(expressServer);

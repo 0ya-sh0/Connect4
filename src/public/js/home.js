@@ -1,11 +1,11 @@
 function createGame() {
     game = document.getElementById("gid").value;
-    window.location.assign(`/game?id=${game}&&created=true`);
+    window.location.assign(`/game.html?id=${game}&created=true`);
 }
 
 function joinGame() {
     game = document.getElementById("gid").value;
-    window.location.assign(`/game?id=${game}&created=false`);
+    window.location.assign(`/game.html?id=${game}&created=false`);
 }
 
 function random() {
