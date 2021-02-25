@@ -4,7 +4,7 @@ window.onload = message;
 var socket = io();
 var rows = parseInt(6);
 var columns = parseInt(7);
-var maxMoves = rows*columns;
+var maxMoves = rows * columns;
 var playerId = parseInt(1);
 var moveCounter = parseInt(0);
 var connect = 4;
@@ -13,42 +13,42 @@ var player2Color = "black";
 var result;
 var pid;
 var gid;
-var cellArray=[];
+var cellArray = [];
 var created;
 var toReload = true;
 var isButtonClicked = false;
 
-socket.on('disconnect',function(){
-     //document.location.reload(true) 
-        if(toReload)
-            setTimeout(document.location.assign('/'),1000);
-            
-});   
-socket.on('startGame',function(gi,pi){
+socket.on('disconnect', function () {
+    //document.location.reload(true) 
+    if (toReload)
+        setTimeout(document.location.assign('/'), 1000);
+
+});
+socket.on('startGame', function (gi, pi) {
     pid = parseInt(pi);
     gid = gi;
     startGame();
 });
-socket.on('otherQuit',function(){
+socket.on('otherQuit', function () {
     alert('Other player quit game');
     document.location.assign('/');
 });
 
-socket.on('moveR',function(cid){
+socket.on('moveR', function (cid) {
     doMove1(parseInt(cid));
 });
 
-socket.on('cheating', ()=>{
+socket.on('cheating', () => {
     alert('guyz listen, stop cheating ....');
 });
 
-socket.on('createGameR',(obj)=>{
+socket.on('createGameR', (obj) => {
     console.log(obj)
-    if(obj.success == true) {
-        document.getElementById('msg').innerHTML = 
-        `Created game, waiting for other player...`;
-        document.getElementById('link').innerHTML = 
-        `<br>share link to invite : 
+    if (obj.success == true) {
+        document.getElementById('msg').innerHTML =
+            `Created game, waiting for other player...`;
+        document.getElementById('link').innerHTML =
+            `<br>share link to invite : 
         ${window.location.origin}/game?id=${gid}&created=false`;
     } else {
         alert(obj.message);
@@ -56,9 +56,9 @@ socket.on('createGameR',(obj)=>{
     }
 });
 
-socket.on('joinGameR',(obj)=>{
+socket.on('joinGameR', (obj) => {
     console.log(obj)
-    if(obj.success == false) {
+    if (obj.success == false) {
         alert(obj.message);
         document.location.assign('/');
     }
@@ -76,11 +76,11 @@ function getQueryVariable(variable) {
     console.log('Query variable %s not found', variable);
 }
 
-function message(){
+function message() {
     document.getElementById('container2').style.display = "none";
     created = getQueryVariable('created');
     gid = getQueryVariable('id');
-    if(created == 'true') {
+    if (created == 'true') {
         document.getElementById('msg').innerHTML = 'creating game ....';
         socket.emit('createGame', gid);
     } else {
@@ -90,125 +90,125 @@ function message(){
 }
 
 
-function startGame(){
-   document.getElementById('container1').style.display = "none"; document.getElementById('container2').style.display = "inherit";
+function startGame() {
+    document.getElementById('container1').style.display = "none"; document.getElementById('container2').style.display = "inherit";
     constructTables();
     displayInfo();
     displayPlayerColor();
 }
-function getInput(){
+function getInput() {
     var change = confirm("Do you want to customize board ?");
-    if(!change){
-        alert("Using default settings") ;  
-        return ; 
+    if (!change) {
+        alert("Using default settings");
+        return;
     }
     alert("Enter Board's Dimensions");
-    rows= parseInt(prompt("Enter board rows",6));
-    columns = parseInt(prompt("Enter board coloumns",7));
-    connect = parseInt(prompt("Enter how many coins of same color needed in a line to win ?",4)); 
+    rows = parseInt(prompt("Enter board rows", 6));
+    columns = parseInt(prompt("Enter board coloumns", 7));
+    connect = parseInt(prompt("Enter how many coins of same color needed in a line to win ?", 4));
 }
-function constructTables(){
-    
-for(var i=0;i<rows;i++){
-    var innerArray =[];
-    for(var j=0;j<columns;j++){
-        innerArray[j] = 0;
+function constructTables() {
+
+    for (var i = 0; i < rows; i++) {
+        var innerArray = [];
+        for (var j = 0; j < columns; j++) {
+            innerArray[j] = 0;
+        }
+        cellArray[i] = innerArray;
     }
-    cellArray[i] = innerArray;
-}
     //boardTable
     var table = document.getElementById("boardTable");
-    for(var i=0;i<rows;i++){
-       var row = table.insertRow(i);
-       for(var j=0;j<columns;j++){
-          var c = row.insertCell(j); 
-          var d = document.createElement("div");
-         // d.setAttribute("class","cell") ;
-         // d.setAttribute("className",i+","+j)
-          d.id = i+","+j;
-          d.className = "cell";
-          c.appendChild(d);
-       }
-    }  
-    
+    for (var i = 0; i < rows; i++) {
+        var row = table.insertRow(i);
+        for (var j = 0; j < columns; j++) {
+            var c = row.insertCell(j);
+            var d = document.createElement("div");
+            // d.setAttribute("class","cell") ;
+            // d.setAttribute("className",i+","+j)
+            d.id = i + "," + j;
+            d.className = "cell";
+            c.appendChild(d);
+        }
+    }
+
     //buttonTable
-    table = document.getElementById("buttonTable") ;
-    var row = table.insertRow(0) ;
-    for(var i=0;i<columns;i++){
+    table = document.getElementById("buttonTable");
+    var row = table.insertRow(0);
+    for (var i = 0; i < columns; i++) {
         var c = row.insertCell(i);
         var d = document.createElement("button");
         //d.setAttribute("class","inputButton");
         //d.setAttribute("className","b"+i);
-        d.setAttribute("onclick","doMove("+i+")");
+        d.setAttribute("onclick", "doMove(" + i + ")");
         d.className = "inputButton";
-        d.id = "b"+i;
+        d.id = "b" + i;
         c.appendChild(d);
     }
 }
-function displayPlayerColor(){
+function displayPlayerColor() {
     var infoDiv = document.getElementById("playerColor");
-    infoDiv.innerHTML = "Player 1 : "+ player1Color+"<br/>Player 2 : "+ player2Color ;
+    infoDiv.innerHTML = "Player 1 : " + player1Color + "<br/>Player 2 : " + player2Color;
 }
-function displayInfo(){
+function displayInfo() {
     var infoDiv = document.getElementById("info");
     var infoString;
-    if(pid==playerId) {
+    if (pid == playerId) {
         infoString = "Your turn";
         infoDiv.classList.add('blinking');
-    }else {
-         infoString = "Wait for other player"; 
-         infoDiv.classList.remove('blinking');   
+    } else {
+        infoString = "Wait for other player";
+        infoDiv.classList.remove('blinking');
     }
     info.innerHTML = infoString;// "Player "+ playerId+" should play";
 }
-function doMove(colId){
-    if(playerId !=pid || isButtonClicked)
-    return;
+function doMove(colId) {
+    if (playerId != pid || isButtonClicked)
+        return;
     isButtonClicked = true;
-    socket.emit('move',gid, colId);
+    socket.emit('move', gid, colId);
 }
-function doMove1(colId){
+function doMove1(colId) {
     var i;
-    for(i=rows-1;i>=0;i--){
-        if(cellArray[i][colId]==0){
-            cellArray[i][colId] = playerId; 
-            break ;
+    for (i = rows - 1; i >= 0; i--) {
+        if (cellArray[i][colId] == 0) {
+            cellArray[i][colId] = playerId;
+            break;
         }
     }
-    changeColorOfCell(i,colId);
-    if(isGameComplete(parseInt(i),parseInt(colId))){      // console.log("true"); 
-        if(maxMoves<= moveCounter){
+    changeColorOfCell(i, colId);
+    if (isGameComplete(parseInt(i), parseInt(colId))) {      // console.log("true"); 
+        if (maxMoves <= moveCounter) {
             result = 0;
         }
         else {
-            result = playerId; 
+            result = playerId;
         }
         gameCompleted();
-        return ;
+        return;
     }
     //console.log("false");
     moveCounter++;
-    playerId = moveCounter%2+1;
+    playerId = moveCounter % 2 + 1;
     isButtonClicked = false;
     displayInfo();
 }
-function disableButton(buttonId){
+function disableButton(buttonId) {
     var button = document.getElementById(buttonId);
-    button.disabled = true ;   
+    button.disabled = true;
 }
-function changeColorOfCell (row,col){
-    var cellId = row+","+col;
+function changeColorOfCell(row, col) {
+    var cellId = row + "," + col;
     var color;
-    if(playerId == 1){
-     color = player1Color    
+    if (playerId == 1) {
+        color = player1Color
     }
-    else{
-        color = player2Color ;
+    else {
+        color = player2Color;
     }
     var cell = document.getElementById(cellId);
     cell.style.backgroundColor = color;
-    if(row===0){
-        disableButton("b"+col);
+    if (row === 0) {
+        disableButton("b" + col);
     }
 }
 //functions for isGameComplete checking
@@ -218,85 +218,85 @@ integer values for direction
 8  cell 4
 7   6   5
 */
-function getCoinsCountInDir(r,c,dir){
+function getCoinsCountInDir(r, c, dir) {
     var player = parseInt(cellArray[r][c]);
     var count = 0;
     var changeCol;
     var changeRow;
-    switch(dir){
+    switch (dir) {
         case 1:
             changeCol = -1; changeRow = -1;
-            break ;
+            break;
         case 2:
             changeCol = 0; changeRow = -1;
-            break ;
+            break;
         case 3:
             changeCol = 1; changeRow = -1;
-            break ;
+            break;
         case 4:
             changeCol = 1; changeRow = 0;
-            break ;
+            break;
         case 5:
             changeCol = 1; changeRow = 1;
-            break ;
+            break;
         case 6:
             changeCol = 0; changeRow = 1;
-            break ;
+            break;
         case 7:
             changeCol = -1; changeRow = 1;
-            break ;
+            break;
         case 8:
             changeCol = -1; changeRow = 0;
-            break ;
+            break;
     }
-    r += changeRow ;
-    c += changeCol ; 
-    while(r>=0&&r<rows&&c>=0&&c<columns){
-       if(player == parseInt(cellArray[r][c])){
+    r += changeRow;
+    c += changeCol;
+    while (r >= 0 && r < rows && c >= 0 && c < columns) {
+        if (player == parseInt(cellArray[r][c])) {
             count++;
-            r += changeRow ;
-            c += changeCol ; 
+            r += changeRow;
+            c += changeCol;
         }
-        else{
-            break ;
+        else {
+            break;
         }
     }
     return count;
 }
-function isGameComplete(row,col){
-    if(getCoinsCountInDir(row,col,1)+ getCoinsCountInDir(row,col,5)>= connect-1){
-        return true ;
-    }  
-    else if(getCoinsCountInDir(row,col,2)+ getCoinsCountInDir(row,col,6)>= connect-1){
-        return true ;
+function isGameComplete(row, col) {
+    if (getCoinsCountInDir(row, col, 1) + getCoinsCountInDir(row, col, 5) >= connect - 1) {
+        return true;
     }
-    else if(getCoinsCountInDir(row,col,3)+ getCoinsCountInDir(row,col,7)>= connect-1){
-        return true ;
-    }  
-    else if(getCoinsCountInDir(row,col,4)+ getCoinsCountInDir(row,col,8)>= connect-1){
-        return true ;
-    }  
-    else if(moveCounter>= maxMoves){
-        return true ;
+    else if (getCoinsCountInDir(row, col, 2) + getCoinsCountInDir(row, col, 6) >= connect - 1) {
+        return true;
+    }
+    else if (getCoinsCountInDir(row, col, 3) + getCoinsCountInDir(row, col, 7) >= connect - 1) {
+        return true;
+    }
+    else if (getCoinsCountInDir(row, col, 4) + getCoinsCountInDir(row, col, 8) >= connect - 1) {
+        return true;
+    }
+    else if (moveCounter >= maxMoves) {
+        return true;
     }
     else
-    return false ;
+        return false;
 }
-function gameCompleted(){
+function gameCompleted() {
     var resultString;
-    if(result===0){
+    if (result === 0) {
         resultString = "Its a Tie";
-    }  
-    else{
-        resultString = "Player "+result+" Wins!";
-    }  
+    }
+    else {
+        resultString = "Player " + result + " Wins!";
+    }
     var infoDiv = document.getElementById("info");
     infoDiv.innerHTML = resultString;
-    for(var i=0;i<columns;i++){
-        disableButton("b"+i);
+    for (var i = 0; i < columns; i++) {
+        disableButton("b" + i);
     }
-    if(pid == 1) {
-        socket.emit('endGame',gid)
+    if (pid == 1) {
+        socket.emit('endGame', gid)
     }
     toReload = false
     //document.location.reload(true);

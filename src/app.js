@@ -1,13 +1,13 @@
 const express = require('express')
 const app = express();
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
 	res.redirect('/home');
 });
-app.get('/home',function(req,res){
+app.get('/home', function (req, res) {
 	res.sendFile(__dirname + '/public/views/home.html');
 });
-app.get('/game',function(req,res){
+app.get('/game', function (req, res) {
 	res.sendFile(__dirname + '/public/views/game.html');
 });
 

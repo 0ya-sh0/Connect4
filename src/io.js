@@ -2,7 +2,7 @@ const socketio = require('socket.io');
 
 module.exports = (http) => {
     const io = socketio(http);
-    io.on('connection', connectionHandler);   
+    io.on('connection', connectionHandler);
 }
 
 function connectionHandler(socket) {

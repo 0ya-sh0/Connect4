@@ -1,8 +1,8 @@
 const Games = require('../game')
 
 module.exports = {
-    name : "move",
-    handler : (socket, id, move) => {
+    name: "move",
+    handler: (socket, id, move) => {
         try {
             Games.move(socket, id, move);
         } catch (error) {

@@ -4,33 +4,36 @@ date : 11-18-2017
 -->
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Connect 4</title>        
-          <script src="/socket.io/socket.io.js"></script>
-            <script src="/scripts/tscgame.js"></script>
-            <link href="/styles/main.css" rel="stylesheet">
-            <link href="/styles/game.css" rel="stylesheet">
-         </head>
-    <body>
-        <h1>Connect 4<br/></h1>
 
-        <div class = "container" id = "container1">
-            <div id="msg"></div>
-            <div id="link"></div>
+<head>
+    <title>Connect 4</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/scripts/game.js"></script>
+    <link href="/styles/main.css" rel="stylesheet">
+    <link href="/styles/game.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Connect 4<br /></h1>
+
+    <div class="container" id="container1">
+        <div id="msg"></div>
+        <div id="link"></div>
+    </div>
+
+    <div id="container2">
+        <div id="info"></div>
+        <div id="playerColor"></div>
+        <div id="board">
+            <table id="boardTable"></table>
         </div>
+        <table id="buttonTable"></table>
+    </div>
 
-        <div id="container2">
-            <div id="info"></div>
-            <div id="playerColor"></div>
-            <div id ="board">
-                <table id="boardTable"></table>
-            </div>
-            <table id="buttonTable"></table>
-        </div>
+    <div class="container">
+        <button onclick="document.location.assign('/')">Quit</button>
+    </div>
 
-        <div class="container">
-            <button onclick="document.location.assign('/')">Quit</button>
-        </div>
+</body>
 
-    </body>
 </html>
